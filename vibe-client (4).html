@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe-Client</title>
+<style>
+  :root {
+    --bg: #121212;
+    --bg-card: #1a1a1a;
+    --bg-input: #202020;
+    --border: #2a2a2a;
+    --text: #f2f2f2;
+    --text-muted: #a0a0a0;
+    --accent: #4f8cff;
+    --accent-dark: #3a6fd1;
+    --discord: #5865F2;
+    --warn: #e0a63a;
+    --danger: #e05d5d;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 18px 40px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 17px;
+  }
+
+  .logo-badge {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #0b0b0b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    gap: 28px;
+  }
+
+  nav a {
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  nav a:hover { color: var(--text); }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: 12px;
+  }
+
+  .icon-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .icon-btn:hover { border-color: var(--accent); }
+
+  .icon-btn svg { width: 18px; height: 18px; }
+
+  .cart-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #0b0d14;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+  }
+
+  .cart-count.show { display: flex; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+
+  .btn:hover { filter: brightness(1.08); }
+
+  .btn-accent {
+    background: var(--accent);
+    color: #0b0d14;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: none;
+  }
+
+  .btn:focus-visible,
+  .grade-buy:focus-visible,
+  .icon-btn:focus-visible,
+  input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 70px 24px 100px;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 90px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+
+  .badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+
+  .hero p {
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 520px;
+    margin: 0 auto 34px;
+  }
+
+  .hero p strong { color: var(--text); font-weight: 600; }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  .section-sub {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .section-sub strong { color: var(--text); }
+
+  .grades {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 46px;
+  }
+
+  .grade-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .grade-card.featured {
+    border-color: var(--accent);
+  }
+
+  .grade-name {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .grade-price {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+
+  .grade-features {
+    list-style: none;
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+
+  .grade-features li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .grade-features li::before {
+    content: "✓";
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .grade-buy {
+    width: 100%;
+    padding: 11px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .grade-card.featured .grade-buy {
+    background: var(--accent);
+    color: #0b0d14;
+    border: none;
+  }
+
+  .grade-buy:hover { filter: brightness(1.1); }
+
+  .panel {
+    max-width: 620px;
+    margin: 90px auto 0;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 46px 30px;
+  }
+
+  .panel h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  .panel p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 26px;
+  }
+
+  .panel p strong { color: var(--text); }
+
+  .panel-note {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-top: 14px;
+  }
+
+  .panel.discord {
+    margin-top: 26px;
+  }
+
+  .btn-discord {
+    background: var(--discord);
+    color: #fff;
+    padding: 11px 26px;
+  }
+
+  .link-form {
+    display: flex;
+    gap: 10px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .link-form input {
+    flex: 1;
+    padding: 10px 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .link-status {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(79, 140, 255, 0.1);
+    border: 1px solid var(--accent);
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .link-status.show { display: flex; }
+
+  .link-status .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 30px 24px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .footer-warn {
+    color: var(--warn);
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+
+  @media (max-width: 800px) {
+    header { padding: 16px 20px; }
+    nav { display: none; }
+    .hero h1 { font-size: 38px; }
+    .grades { grid-template-columns: 1fr; }
+  }
+
+  /* Toast */
+  #toast {
+    position: fixed;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 300;
+    max-width: 90vw;
+  }
+
+  #toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  #toast .dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 8px;
+  }
+
+  /* Modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 20px;
+  }
+
+  .modal-backdrop.open {
+    display: flex;
+  }
+
+  .modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    max-width: 380px;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal h3 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .modal p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+
+  .modal p strong { color: var(--text); }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .modal-actions .btn {
+    flex: 1;
+  }
+
+  /* Auth modal */
+  .auth-tabs {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3px;
+    margin-bottom: 22px;
+  }
+
+  .auth-tab {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .auth-tab.active {
+    background: var(--accent);
+    color: #0b0d14;
+  }
+
+  .field {
+    text-align: left;
+    margin-bottom: 14px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .field input {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .field input:focus {
+    border-color: var(--accent);
+  }
+
+  .field-error {
+    color: var(--danger);
+    font-size: 12px;
+    margin-top: 6px;
+    display: none;
+  }
+
+  .field-error.show { display: block; }
+
+  /* Captcha */
+  .captcha-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+  }
+
+  .captcha-question {
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .captcha-box input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .captcha-refresh {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-muted);
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .captcha-refresh:hover { color: var(--text); border-color: var(--accent); }
+
+  .lock-warning {
+    color: var(--warn);
+    font-size: 12px;
+    margin-top: 6px;
+    display: none;
+  }
+
+  .lock-warning.show { display: block; }
+
+  /* Admin dashboard */
+  .admin-modal .modal {
+    max-width: 620px;
+    text-align: left;
+  }
+
+  .admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .admin-stat {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .admin-stat-value {
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  .admin-stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .admin-orders-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .admin-orders {
+    max-height: 240px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 18px;
+  }
+
+  .admin-order-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .admin-order-row:last-child { border-bottom: none; }
+
+  .admin-order-buyer { font-weight: 600; }
+
+  .admin-order-meta {
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  .admin-order-total {
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .admin-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: 20px 0;
+  }
+
+  .admin-live-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .admin-live-dot .pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #3ad17a;
+    animation: pulse 1.4s infinite;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+  }
+
+  .auth-form { text-align: left; }
+
+  .auth-switch {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 16px;
+  }
+
+  .auth-switch button {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  .account-pill {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 6px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text);
+  }
+
+  .account-pill.show { display: inline-flex; }
+
+  .account-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #0b0d14;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 12px;
+  }
+
+  /* Cart */
+  .cart-modal .modal { max-width: 440px; text-align: left; }
+
+  .cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    max-height: 260px;
+    overflow-y: auto;
+  }
+
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+
+  .cart-item-name {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .cart-item-price {
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .cart-item-remove {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .cart-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 30px 0;
+  }
+
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 15px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    margin-bottom: 18px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-badge">V</div>
+    Vibe-Client
+  </div>
+  <nav>
+    <a href="#">Store</a>
+    <a href="#">Rôles Discord</a>
+    <a href="#">Télécharger</a>
+  </nav>
+  <div class="header-actions">
+    <button class="icon-btn" id="cart-btn" aria-label="Panier">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+    <button class="btn btn-outline" id="account-btn">Se connecter</button>
+    <button class="account-pill" id="account-pill">
+      <span class="account-avatar" id="account-avatar">?</span>
+      <span id="account-name"></span>
+    </button>
+    <button class="btn btn-outline" id="admin-stats-btn" style="display:none;">📊 Admin</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="badge"><span class="dot"></span> Réservé aux membres du Discord</div>
+    <h1>Vibe-Client</h1>
+    <p>Le store officiel de ton cheat Minecraft <strong>.jar</strong>. Ton accès est réservé aux membres du Discord.</p>
+    <div class="hero-actions">
+      <button class="btn btn-accent" data-action="download">Télécharger le .jar</button>
+      <button class="btn btn-discord" data-action="discord">Rejoindre le Discord</button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Salon des grades</h2>
+    <p class="section-sub">Choisis ton grade : 5€ ou 9€. Ton rôle Discord est attribué après l'achat.</p>
+    <p class="section-sub">Grade gratuit : <strong>Membre</strong> — lie ton compte Discord ci-dessous pour l'obtenir automatiquement.</p>
+
+    <div class="grades">
+      <div class="grade-card featured">
+        <div class="grade-name">Grade 2 — Vibe User</div>
+        <div class="grade-price">5€</div>
+        <ul class="grade-features">
+          <li>Téléchargement du .jar</li>
+          <li>Accès à la version stable</li>
+          <li>Support prioritaire</li>
+        </ul>
+        <button class="grade-buy" data-action="cart-add" data-grade="Vibe User" data-price="5">Ajouter au panier</button>
+      </div>
+
+      <div class="grade-card">
+        <div class="grade-name">Grade 3 — Vibe Premium</div>
+        <div class="grade-price">9€</div>
+        <ul class="grade-features">
+          <li>Versions bêta en avant-première</li>
+          <li>Configs exclusives</li>
+          <li>Accès au salon privé</li>
+        </ul>
+        <button class="grade-buy" data-action="cart-add" data-grade="Vibe Premium" data-price="9">Ajouter au panier</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="panel">
+    <h2>Télécharger Vibe-Client</h2>
+    <p>Le fichier <strong>vibe-client.jar</strong> est réservé aux membres du Discord.</p>
+    <button class="btn btn-accent" data-action="download">Télécharger le .jar</button>
+    <div class="panel-note">Version stable · Windows / Linux · Java 17+</div>
+  </div>
+
+  <div class="panel discord">
+    <h2>Lier mon compte Discord</h2>
+    <p>Lie ton compte Discord au site pour obtenir automatiquement le grade <strong>Membre</strong> gratuit.</p>
+    <form class="link-form" id="discord-link-form">
+      <input type="text" id="discord-link-input" placeholder="Pseudo ou ID Discord" required>
+      <button type="submit" class="btn btn-discord">Lier le compte</button>
+    </form>
+    <div class="link-status" id="link-status"><span class="dot"></span><span id="link-status-text"></span></div>
+    <div class="panel-note">Il faut d'abord avoir rejoint le serveur Discord.</div>
+  </div>
+</main>
+
+<footer>
+  © 2026 Vibe-Client. Tous droits réservés.
+  <div class="footer-warn">⚠ Accès limité au cheat — réduction en fonction du grade</div>
+  <div class="footer-links">
+    <a href="#">Store</a>
+    <a href="#">Rôles</a>
+    <a href="#">FAQ</a>
+    <a href="#">Discord</a>
+  </div>
+</footer>
+
+<div id="toast"><span class="dot"></span><span id="toast-text"></span></div>
+
+<!-- Modale Auth -->
+<div class="modal-backdrop" id="auth-backdrop">
+  <div class="modal">
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login">Connexion</button>
+      <button class="auth-tab" id="tab-register">Inscription</button>
+    </div>
+
+    <!-- Login -->
+    <form class="auth-form" id="login-form">
+      <div class="field">
+        <label for="login-id">Email ou pseudo</label>
+        <input type="text" id="login-id" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="login-password">Mot de passe</label>
+        <input type="password" id="login-password" autocomplete="current-password" required>
+      </div>
+      <div class="field">
+        <label for="login-captcha">Vérification anti-robot</label>
+        <div class="captcha-box">
+          <span class="captcha-question" id="captcha-question">? + ?</span>
+          <input type="text" id="login-captcha" inputmode="numeric" autocomplete="off" required>
+          <button type="button" class="captcha-refresh" id="captcha-refresh" title="Nouveau calcul">↻</button>
+        </div>
+      </div>
+      <div class="field-error" id="login-error"></div>
+      <div class="lock-warning" id="lock-warning"></div>
+      <button type="submit" class="btn btn-accent" style="width:100%;margin-top:6px;" id="login-submit">Se connecter</button>
+    </form>
+
+    <!-- Register -->
+    <form class="auth-form" id="register-form" style="display:none;">
+      <div class="field">
+        <label for="reg-email">Email</label>
+        <input type="email" id="reg-email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="reg-pseudo">Pseudo</label>
+        <input type="text" id="reg-pseudo" autocomplete="nickname" required>
+      </div>
+      <div class="field">
+        <label for="reg-password">Mot de passe</label>
+        <input type="password" id="reg-password" autocomplete="new-password" required minlength="6">
+      </div>
+      <div class="field">
+        <label for="reg-password-confirm">Confirmer le mot de passe</label>
+        <input type="password" id="reg-password-confirm" autocomplete="new-password" required minlength="6">
+      </div>
+      <div class="field-error" id="register-error"></div>
+      <button type="submit" class="btn btn-accent" style="width:100%;margin-top:6px;">Créer mon compte</button>
+    </form>
+
+    <div class="auth-switch" id="auth-switch">
+      Pas encore de compte ? <button id="switch-to-register">S'inscrire</button>
+    </div>
+  </div>
+</div>
+
+<!-- Panel Admin (visible uniquement pour le compte admin, connecté via "Se connecter") -->
+<div class="modal-backdrop admin-modal" id="admin-backdrop">
+  <div class="modal">
+    <h3>Tableau de bord</h3>
+    <div class="admin-live-dot"><span class="pulse"></span> Mise à jour en temps réel</div>
+
+    <div class="admin-stats-grid">
+      <div class="admin-stat">
+        <div class="admin-stat-value" id="stat-visits">0</div>
+        <div class="admin-stat-label">Visites</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-value" id="stat-sales">0</div>
+        <div class="admin-stat-label">Ventes</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-value" id="stat-revenue">0€</div>
+        <div class="admin-stat-label">Chiffre d'affaires</div>
+      </div>
+    </div>
+
+    <div class="admin-orders-title">Dernières commandes</div>
+    <div class="admin-orders" id="admin-orders"></div>
+
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="admin-close">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Achat (grade unique) -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <h3 id="modal-title">Confirmer l'achat</h3>
+    <p id="modal-body">Tu vas acheter le grade.</p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="modal-cancel">Annuler</button>
+      <button class="btn btn-accent" id="modal-confirm">Confirmer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Panier -->
+<div class="modal-backdrop cart-modal" id="cart-backdrop">
+  <div class="modal">
+    <h3>Mon panier</h3>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-total" id="cart-total" style="display:none;">
+      <span>Total</span>
+      <span id="cart-total-amount">0€</span>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="cart-close">Fermer</button>
+      <button class="btn btn-accent" id="cart-checkout">Valider la commande</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const DISCORD_INVITE = "https://discord.gg/ton-invite"; // remplace par ton vrai lien d'invitation
+
+  // --- Identifiants admin : modifie ces 2 lignes pour changer le compte admin ---
+  const ADMIN_EMAIL = "admin@vibe-client.com";
+  const ADMIN_PASSWORD = "ChangeMoi123!";
+
+  /* --- Etat en mémoire (pas de stockage persistant) --- */
+  const users = [];        // { email, pseudo, password }
+  let currentUser = null;  // { email, pseudo }
+  const cart = [];         // { grade, price }
+  let discordLinked = false; // compte Discord lié => grade Membre gratuit
+
+  /* --- Toast --- */
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toast-text');
+  let toastTimer;
+
+  function showToast(message) {
+    toastText.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+  }
+
+  /* --- Modale générique achat unique (gardée pour compat) --- */
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const modalTitle = document.getElementById('modal-title');
+  const modalBody = document.getElementById('modal-body');
+  const modalConfirm = document.getElementById('modal-confirm');
+  const modalCancel = document.getElementById('modal-cancel');
+
+  function closeModal(backdrop) {
+    backdrop.classList.remove('open');
+  }
+
+  modalCancel.addEventListener('click', () => closeModal(modalBackdrop));
+  document.querySelectorAll('.modal-backdrop').forEach((bd) => {
+    bd.addEventListener('click', (e) => {
+      if (e.target === bd) closeModal(bd);
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-backdrop.open').forEach(closeModal);
+    }
+  });
+
+  /* --- Auth --- */
+  const authBackdrop = document.getElementById('auth-backdrop');
+  const accountBtn = document.getElementById('account-btn');
+  const accountPill = document.getElementById('account-pill');
+  const accountAvatar = document.getElementById('account-avatar');
+  const accountName = document.getElementById('account-name');
+  const adminStatsBtn = document.getElementById('admin-stats-btn');
+
+  const tabLogin = document.getElementById('tab-login');
+  const tabRegister = document.getElementById('tab-register');
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  const authSwitch = document.getElementById('auth-switch');
+  const switchToRegister = document.getElementById('switch-to-register');
+  const loginError = document.getElementById('login-error');
+  const registerError = document.getElementById('register-error');
+  const captchaQuestion = document.getElementById('captcha-question');
+  const captchaInput = document.getElementById('login-captcha');
+  const captchaRefresh = document.getElementById('captcha-refresh');
+  const lockWarning = document.getElementById('lock-warning');
+  const loginSubmit = document.getElementById('login-submit');
+
+  /* --- Captcha anti-robot --- */
+  let captchaAnswer = 0;
+
+  function generateCaptcha() {
+    const a = Math.floor(Math.random() * 9) + 1;
+    const b = Math.floor(Math.random() * 9) + 1;
+    captchaAnswer = a + b;
+    captchaQuestion.textContent = `${a} + ${b} =`;
+    captchaInput.value = '';
+  }
+
+  captchaRefresh.addEventListener('click', generateCaptcha);
+
+  /* --- Anti brute-force --- */
+  const MAX_ATTEMPTS = 5;
+  const LOCK_DURATION_MS = 60000; // 60s
+  const loginAttempts = new Map(); // identifiant -> { count, lockUntil }
+  let lockTimer;
+
+  function getAttemptKey(id) {
+    return id.trim().toLowerCase();
+  }
+
+  function isLocked(key) {
+    const entry = loginAttempts.get(key);
+    return !!(entry && entry.lockUntil && entry.lockUntil > Date.now());
+  }
+
+  function registerFailedAttempt(key) {
+    const entry = loginAttempts.get(key) || { count: 0, lockUntil: 0 };
+    entry.count += 1;
+    if (entry.count >= MAX_ATTEMPTS) {
+      entry.lockUntil = Date.now() + LOCK_DURATION_MS;
+      entry.count = 0;
+    }
+    loginAttempts.set(key, entry);
+    return entry;
+  }
+
+  function clearAttempts(key) {
+    loginAttempts.delete(key);
+  }
+
+  function updateLockUI(key) {
+    clearInterval(lockTimer);
+    const entry = loginAttempts.get(key);
+
+    if (entry && entry.lockUntil && entry.lockUntil > Date.now()) {
+      loginSubmit.disabled = true;
+      const render = () => {
+        const remaining = Math.ceil((entry.lockUntil - Date.now()) / 1000);
+        if (remaining <= 0) {
+          lockWarning.classList.remove('show');
+          loginSubmit.disabled = false;
+          clearInterval(lockTimer);
+          return;
+        }
+        lockWarning.textContent = `Trop de tentatives échouées — réessaie dans ${remaining}s.`;
+        lockWarning.classList.add('show');
+      };
+      render();
+      lockTimer = setInterval(render, 1000);
+    } else {
+      lockWarning.classList.remove('show');
+      loginSubmit.disabled = false;
+    }
+  }
+
+  function showLoginTab() {
+    tabLogin.classList.add('active');
+    tabRegister.classList.remove('active');
+    loginForm.style.display = 'block';
+    registerForm.style.display = 'none';
+    authSwitch.innerHTML = "Pas encore de compte ? <button id='switch-to-register'>S'inscrire</button>";
+    document.getElementById('switch-to-register').addEventListener('click', showRegisterTab);
+  }
+
+  function showRegisterTab() {
+    tabRegister.classList.add('active');
+    tabLogin.classList.remove('active');
+    registerForm.style.display = 'block';
+    loginForm.style.display = 'none';
+    authSwitch.innerHTML = "Déjà un compte ? <button id='switch-to-login'>Se connecter</button>";
+    document.getElementById('switch-to-login').addEventListener('click', showLoginTab);
+  }
+
+  tabLogin.addEventListener('click', showLoginTab);
+  tabRegister.addEventListener('click', showRegisterTab);
+  switchToRegister.addEventListener('click', showRegisterTab);
+
+  accountBtn.addEventListener('click', () => {
+    loginError.classList.remove('show');
+    registerError.classList.remove('show');
+    loginForm.reset();
+    registerForm.reset();
+    showLoginTab();
+    generateCaptcha();
+    lockWarning.classList.remove('show');
+    loginSubmit.disabled = false;
+    authBackdrop.classList.add('open');
+  });
+
+  accountPill.addEventListener('click', () => {
+    if (!currentUser) return;
+    const confirmLogout = confirm(`Déconnecter ${currentUser.pseudo} ?`);
+    if (confirmLogout) {
+      currentUser = null;
+      refreshAccountUI();
+      showToast('Déconnecté.');
+    }
+  });
+
+  function refreshAccountUI() {
+    if (currentUser) {
+      accountBtn.classList.remove('show');
+      accountBtn.style.display = 'none';
+      accountPill.classList.add('show');
+      accountAvatar.textContent = currentUser.pseudo.charAt(0).toUpperCase();
+      accountName.textContent = currentUser.pseudo;
+      adminStatsBtn.style.display = currentUser.isAdmin ? 'inline-flex' : 'none';
+    } else {
+      accountBtn.style.display = 'inline-flex';
+      accountPill.classList.remove('show');
+      adminStatsBtn.style.display = 'none';
+    }
+  }
+
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    loginError.classList.remove('show');
+
+    const id = document.getElementById('login-id').value.trim();
+    const password = document.getElementById('login-password').value;
+    const key = getAttemptKey(id || 'anonyme');
+
+    if (isLocked(key)) {
+      updateLockUI(key);
+      loginError.textContent = "Compte temporairement bloqué, patiente avant de réessayer.";
+      loginError.classList.add('show');
+      return;
+    }
+
+    const captchaValue = Number(captchaInput.value.trim());
+    if (!captchaInput.value.trim() || captchaValue !== captchaAnswer) {
+      loginError.textContent = "Vérification anti-robot incorrecte.";
+      loginError.classList.add('show');
+      generateCaptcha();
+      return;
+    }
+
+    if (id.toLowerCase() === ADMIN_EMAIL.toLowerCase() && password === ADMIN_PASSWORD) {
+      clearAttempts(key);
+      currentUser = { email: ADMIN_EMAIL, pseudo: 'Admin', isAdmin: true };
+      refreshAccountUI();
+      closeModal(authBackdrop);
+      showToast('Connecté en tant qu\'admin.');
+      return;
+    }
+
+    const user = users.find(
+      (u) => (u.email === id || u.pseudo === id) && u.password === password
+    );
+
+    if (!user) {
+      registerFailedAttempt(key);
+      updateLockUI(key);
+      generateCaptcha();
+      const entry = loginAttempts.get(key);
+      if (entry && entry.lockUntil > Date.now()) {
+        loginError.textContent = "Trop de tentatives échouées — compte bloqué temporairement.";
+      } else {
+        loginError.textContent = "Email/pseudo ou mot de passe incorrect.";
+      }
+      loginError.classList.add('show');
+      return;
+    }
+
+    clearAttempts(key);
+    currentUser = { email: user.email, pseudo: user.pseudo };
+    refreshAccountUI();
+    closeModal(authBackdrop);
+    showToast(`Bienvenue, ${currentUser.pseudo} !`);
+  });
+
+  registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    registerError.classList.remove('show');
+
+    const email = document.getElementById('reg-email').value.trim();
+    const pseudo = document.getElementById('reg-pseudo').value.trim();
+    const password = document.getElementById('reg-password').value;
+    const passwordConfirm = document.getElementById('reg-password-confirm').value;
+
+    if (password !== passwordConfirm) {
+      registerError.textContent = "Les mots de passe ne correspondent pas.";
+      registerError.classList.add('show');
+      return;
+    }
+
+    if (password.length < 6) {
+      registerError.textContent = "Le mot de passe doit faire au moins 6 caractères.";
+      registerError.classList.add('show');
+      return;
+    }
+
+    const exists = users.some((u) => u.email === email || u.pseudo === pseudo);
+    if (exists) {
+      registerError.textContent = "Un compte existe déjà avec cet email ou ce pseudo.";
+      registerError.classList.add('show');
+      return;
+    }
+
+    users.push({ email, pseudo, password });
+    currentUser = { email, pseudo };
+    refreshAccountUI();
+    closeModal(authBackdrop);
+    showToast(`Compte créé — bienvenue, ${pseudo} !`);
+  });
+
+  /* --- Panier --- */
+  const cartBtn = document.getElementById('cart-btn');
+  const cartCount = document.getElementById('cart-count');
+  const cartBackdrop = document.getElementById('cart-backdrop');
+  const cartItemsEl = document.getElementById('cart-items');
+  const cartTotalEl = document.getElementById('cart-total');
+  const cartTotalAmount = document.getElementById('cart-total-amount');
+  const cartClose = document.getElementById('cart-close');
+  const cartCheckout = document.getElementById('cart-checkout');
+
+  function updateCartBadge() {
+    cartCount.textContent = cart.length;
+    cartCount.classList.toggle('show', cart.length > 0);
+  }
+
+  function renderCart() {
+    cartItemsEl.innerHTML = '';
+
+    if (cart.length === 0) {
+      cartItemsEl.innerHTML = '<div class="cart-empty">Ton panier est vide.</div>';
+      cartTotalEl.style.display = 'none';
+      return;
+    }
+
+    let total = 0;
+    cart.forEach((item, index) => {
+      total += item.price;
+      const row = document.createElement('div');
+      row.className = 'cart-item';
+      row.innerHTML = `
+        <div>
+          <div class="cart-item-name">${item.grade}</div>
+          <div class="cart-item-price">${item.price}€</div>
+        </div>
+        <button class="cart-item-remove" data-index="${index}">Retirer</button>
+      `;
+      cartItemsEl.appendChild(row);
+    });
+
+    cartTotalEl.style.display = 'flex';
+    cartTotalAmount.textContent = `${total}€`;
+
+    cartItemsEl.querySelectorAll('.cart-item-remove').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        cart.splice(Number(btn.dataset.index), 1);
+        updateCartBadge();
+        renderCart();
+      });
+    });
+  }
+
+  function addToCart(grade, price) {
+    cart.push({ grade, price: Number(price) });
+    updateCartBadge();
+    showToast(`"${grade}" ajouté au panier.`);
+  }
+
+  cartBtn.addEventListener('click', () => {
+    renderCart();
+    cartBackdrop.classList.add('open');
+  });
+
+  cartClose.addEventListener('click', () => closeModal(cartBackdrop));
+
+  cartCheckout.addEventListener('click', () => {
+    if (cart.length === 0) {
+      showToast('Ton panier est vide.');
+      return;
+    }
+    if (!currentUser) {
+      closeModal(cartBackdrop);
+      showToast('Connecte-toi pour valider ta commande.');
+      accountBtn.click();
+      return;
+    }
+    const total = cart.reduce((sum, i) => sum + i.price, 0);
+    const items = cart.map((i) => ({ grade: i.grade, price: i.price }));
+
+    fetch('/api/sale', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items, total, buyer: currentUser.pseudo }),
+    }).catch(() => {}); // best-effort, ne bloque pas l'UI si l'API est indisponible
+
+    cart.length = 0;
+    updateCartBadge();
+    closeModal(cartBackdrop);
+    showToast(`Commande validée pour ${total}€ — connecte un moyen de paiement pour finaliser.`);
+  });
+
+  /* --- Lien du compte Discord (grade Membre gratuit) --- */
+  const discordLinkForm = document.getElementById('discord-link-form');
+  const discordLinkInput = document.getElementById('discord-link-input');
+  const linkStatus = document.getElementById('link-status');
+  const linkStatusText = document.getElementById('link-status-text');
+
+  discordLinkForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = discordLinkInput.value.trim();
+    if (!value) return;
+
+    discordLinked = true;
+    linkStatusText.textContent = `Compte Discord "${value}" lié — grade Membre débloqué !`;
+    linkStatus.classList.add('show');
+    discordLinkForm.querySelector('button').disabled = true;
+    discordLinkInput.disabled = true;
+    showToast('Compte Discord lié — tu as maintenant le grade Membre !');
+  });
+
+  /* --- Actions génériques --- */
+  document.querySelectorAll('[data-action]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const action = el.dataset.action;
+
+      if (action === 'discord') {
+        window.open(DISCORD_INVITE, '_blank', 'noopener');
+      }
+
+      if (action === 'download') {
+        showToast('Téléchargement réservé aux membres — rejoins le Discord pour débloquer.');
+      }
+
+      if (action === 'roles') {
+        document.querySelector('.grades').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      if (action === 'cart-add') {
+        addToCart(el.dataset.grade, el.dataset.price);
+      }
+    });
+  });
+
+  /* --- Tableau de bord Admin (visible via le compte admin) --- */
+  const adminBackdrop = document.getElementById('admin-backdrop');
+  const adminClose = document.getElementById('admin-close');
+  const statVisits = document.getElementById('stat-visits');
+  const statSales = document.getElementById('stat-sales');
+  const statRevenue = document.getElementById('stat-revenue');
+  const adminOrders = document.getElementById('admin-orders');
+  let adminPollTimer = null;
+
+  function renderAdminStats(stats) {
+    statVisits.textContent = stats.visits ?? 0;
+    statSales.textContent = stats.salesCount ?? 0;
+    statRevenue.textContent = `${stats.revenue ?? 0}€`;
+
+    const orders = stats.orders || [];
+    if (orders.length === 0) {
+      adminOrders.innerHTML = '<div class="admin-empty">Aucune commande pour le moment.</div>';
+      return;
+    }
+
+    adminOrders.innerHTML = orders.map((order) => {
+      const date = new Date(order.date);
+      const dateLabel = isNaN(date) ? '' : date.toLocaleString('fr-FR');
+      const gradeNames = (order.items || []).map((i) => i.grade).join(', ') || '—';
+      return `
+        <div class="admin-order-row">
+          <div>
+            <div class="admin-order-buyer">${order.buyer}</div>
+            <div class="admin-order-meta">${gradeNames} · ${dateLabel}</div>
+          </div>
+          <div class="admin-order-total">${order.total}€</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  async function fetchAdminStats() {
+    try {
+      const res = await fetch('/api/stats');
+      const stats = await res.json();
+      renderAdminStats(stats);
+    } catch (err) {
+      // API indisponible (ex : ouverture du fichier en local sans serveur) : on ignore silencieusement
+    }
+  }
+
+  adminStatsBtn.addEventListener('click', () => {
+    fetchAdminStats();
+    adminBackdrop.classList.add('open');
+    clearInterval(adminPollTimer);
+    adminPollTimer = setInterval(fetchAdminStats, 5000); // rafraîchi toutes les 5s tant que le panel est ouvert
+  });
+
+  adminClose.addEventListener('click', () => {
+    closeModal(adminBackdrop);
+    clearInterval(adminPollTimer);
+  });
+
+  /* --- Comptabilise la visite courante --- */
+  fetch('/api/visit', { method: 'POST' }).catch(() => {});
+
+  refreshAccountUI();
+  updateCartBadge();
+  generateCaptcha();
+</script>
+
+</body>
+</html>
