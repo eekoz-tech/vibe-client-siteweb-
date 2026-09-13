@@ -19,18 +19,18 @@
     --danger: #e05d5d;
     --radius: 10px;
   }
-
+ 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   body {
     background: var(--bg);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.5;
   }
-
+ 
   a { color: inherit; text-decoration: none; }
-
+ 
   header {
     display: flex;
     align-items: center;
@@ -38,7 +38,7 @@
     padding: 18px 40px;
     border-bottom: 1px solid var(--border);
   }
-
+ 
   .logo {
     display: flex;
     align-items: center;
@@ -46,7 +46,7 @@
     font-weight: 700;
     font-size: 17px;
   }
-
+ 
   .logo-badge {
     width: 26px;
     height: 26px;
@@ -59,26 +59,26 @@
     font-weight: 800;
     font-size: 14px;
   }
-
+ 
   nav {
     display: flex;
     align-items: center;
     gap: 28px;
   }
-
+ 
   nav a {
     color: var(--text-muted);
     font-size: 14px;
   }
-
+ 
   nav a:hover { color: var(--text); }
-
+ 
   .header-actions {
     display: flex;
     align-items: center;
     gap: 12px;
   }
-
+ 
   .icon-btn {
     position: relative;
     width: 40px;
@@ -92,11 +92,11 @@
     justify-content: center;
     cursor: pointer;
   }
-
+ 
   .icon-btn:hover { border-color: var(--accent); }
-
+ 
   .icon-btn svg { width: 18px; height: 18px; }
-
+ 
   .cart-count {
     position: absolute;
     top: -6px;
@@ -114,9 +114,9 @@
     justify-content: center;
     display: none;
   }
-
+ 
   .cart-count.show { display: flex; }
-
+ 
   .btn {
     display: inline-flex;
     align-items: center;
@@ -129,26 +129,26 @@
     cursor: pointer;
     transition: filter 0.15s ease;
   }
-
+ 
   .btn:hover { filter: brightness(1.08); }
-
+ 
   .btn-accent {
     background: var(--accent);
     color: #0b0d14;
   }
-
+ 
   .btn-outline {
     background: transparent;
     color: var(--text);
     border: 1px solid var(--border);
   }
-
+ 
   .btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
     filter: none;
   }
-
+ 
   .btn:focus-visible,
   .grade-buy:focus-visible,
   .icon-btn:focus-visible,
@@ -156,18 +156,18 @@
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
-
+ 
   main {
     max-width: 1080px;
     margin: 0 auto;
     padding: 70px 24px 100px;
   }
-
+ 
   .hero {
     text-align: center;
     margin-bottom: 90px;
   }
-
+ 
   .badge {
     display: inline-flex;
     align-items: center;
@@ -179,52 +179,52 @@
     color: var(--text-muted);
     margin-bottom: 28px;
   }
-
+ 
   .badge .dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
     background: var(--accent);
   }
-
+ 
   .hero h1 {
     font-size: 56px;
     font-weight: 800;
     letter-spacing: -1px;
     margin-bottom: 20px;
   }
-
+ 
   .hero p {
     color: var(--text-muted);
     font-size: 16px;
     max-width: 520px;
     margin: 0 auto 34px;
   }
-
+ 
   .hero p strong { color: var(--text); font-weight: 600; }
-
+ 
   .hero-actions {
     display: flex;
     justify-content: center;
     gap: 14px;
   }
-
+ 
   .section-title {
     text-align: center;
     font-size: 32px;
     font-weight: 800;
     margin-bottom: 12px;
   }
-
+ 
   .section-sub {
     text-align: center;
     color: var(--text-muted);
     font-size: 14px;
     margin-bottom: 4px;
   }
-
+ 
   .section-sub strong { color: var(--text); }
-
+ 
   .grades {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -234,7 +234,7 @@
     margin-left: auto;
     margin-right: auto;
   }
-
+ 
   .grade-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -243,29 +243,29 @@
     display: flex;
     flex-direction: column;
   }
-
+ 
   .grade-card.featured {
     border-color: var(--accent);
   }
-
+ 
   .grade-name {
     font-weight: 700;
     font-size: 15px;
     margin-bottom: 6px;
   }
-
+ 
   .grade-price {
     color: var(--text-muted);
     font-size: 13px;
     margin-bottom: 18px;
   }
-
+ 
   .grade-features {
     list-style: none;
     margin-bottom: 24px;
     flex-grow: 1;
   }
-
+ 
   .grade-features li {
     display: flex;
     align-items: center;
@@ -274,13 +274,13 @@
     color: var(--text-muted);
     margin-bottom: 10px;
   }
-
+ 
   .grade-features li::before {
     content: "✓";
     color: var(--accent);
     font-weight: 700;
   }
-
+ 
   .grade-buy {
     width: 100%;
     padding: 11px;
@@ -292,15 +292,15 @@
     font-size: 14px;
     cursor: pointer;
   }
-
+ 
   .grade-card.featured .grade-buy {
     background: var(--accent);
     color: #0b0d14;
     border: none;
   }
-
+ 
   .grade-buy:hover { filter: brightness(1.1); }
-
+ 
   .panel {
     max-width: 620px;
     margin: 90px auto 0;
@@ -310,37 +310,37 @@
     border-radius: var(--radius);
     padding: 46px 30px;
   }
-
+ 
   .panel h2 {
     font-size: 26px;
     font-weight: 800;
     margin-bottom: 12px;
   }
-
+ 
   .panel p {
     color: var(--text-muted);
     font-size: 14px;
     margin-bottom: 26px;
   }
-
+ 
   .panel p strong { color: var(--text); }
-
+ 
   .panel-note {
     color: var(--text-muted);
     font-size: 12px;
     margin-top: 14px;
   }
-
+ 
   .panel.discord {
     margin-top: 26px;
   }
-
+ 
   .btn-discord {
     background: var(--discord);
     color: #fff;
     padding: 11px 26px;
   }
-
+ 
   footer {
     border-top: 1px solid var(--border);
     padding: 30px 24px;
@@ -348,13 +348,13 @@
     color: var(--text-muted);
     font-size: 13px;
   }
-
+ 
   .footer-warn {
     color: var(--warn);
     font-size: 12px;
     margin-bottom: 14px;
   }
-
+ 
   .footer-links {
     display: flex;
     justify-content: center;
@@ -362,14 +362,14 @@
     margin-top: 14px;
     font-size: 13px;
   }
-
+ 
   @media (max-width: 800px) {
     header { padding: 16px 20px; }
     nav { display: none; }
     .hero h1 { font-size: 38px; }
     .grades { grid-template-columns: 1fr; max-width: 100%; }
   }
-
+ 
   /* Toast */
   #toast {
     position: fixed;
@@ -389,12 +389,12 @@
     z-index: 300;
     max-width: 90vw;
   }
-
+ 
   #toast.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
-
+ 
   #toast .dot {
     display: inline-block;
     width: 7px;
@@ -403,7 +403,7 @@
     background: var(--accent);
     margin-right: 8px;
   }
-
+ 
   /* Modal */
   .modal-backdrop {
     position: fixed;
@@ -415,11 +415,11 @@
     z-index: 200;
     padding: 20px;
   }
-
+ 
   .modal-backdrop.open {
     display: flex;
   }
-
+ 
   .modal {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -431,30 +431,30 @@
     max-height: 90vh;
     overflow-y: auto;
   }
-
+ 
   .modal h3 {
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 8px;
   }
-
+ 
   .modal p {
     color: var(--text-muted);
     font-size: 14px;
     margin-bottom: 22px;
   }
-
+ 
   .modal p strong { color: var(--text); }
-
+ 
   .modal-actions {
     display: flex;
     gap: 10px;
   }
-
+ 
   .modal-actions .btn {
     flex: 1;
   }
-
+ 
   /* Auth modal */
   .auth-tabs {
     display: flex;
@@ -463,7 +463,7 @@
     padding: 3px;
     margin-bottom: 22px;
   }
-
+ 
   .auth-tab {
     flex: 1;
     padding: 8px;
@@ -475,24 +475,24 @@
     border-radius: 6px;
     cursor: pointer;
   }
-
+ 
   .auth-tab.active {
     background: var(--accent);
     color: #0b0d14;
   }
-
+ 
   .field {
     text-align: left;
     margin-bottom: 14px;
   }
-
+ 
   .field label {
     display: block;
     font-size: 12px;
     color: var(--text-muted);
     margin-bottom: 6px;
   }
-
+ 
   .field input {
     width: 100%;
     padding: 10px 12px;
@@ -502,29 +502,29 @@
     color: var(--text);
     font-size: 14px;
   }
-
+ 
   .field input:focus {
     border-color: var(--accent);
   }
-
+ 
   .field-error {
     color: var(--danger);
     font-size: 12px;
     margin-top: 6px;
     display: none;
   }
-
+ 
   .field-error.show { display: block; }
-
+ 
   .auth-form { text-align: left; }
-
+ 
   .auth-switch {
     text-align: center;
     font-size: 13px;
     color: var(--text-muted);
     margin-top: 16px;
   }
-
+ 
   .auth-switch button {
     background: none;
     border: none;
@@ -533,7 +533,7 @@
     cursor: pointer;
     font-size: 13px;
   }
-
+ 
   .account-pill {
     display: none;
     align-items: center;
@@ -546,9 +546,9 @@
     background: transparent;
     color: var(--text);
   }
-
+ 
   .account-pill.show { display: inline-flex; }
-
+ 
   .account-avatar {
     width: 26px;
     height: 26px;
@@ -561,7 +561,7 @@
     font-weight: 800;
     font-size: 12px;
   }
-
+ 
   .link-discord-btn {
     display: none;
     align-items: center;
@@ -575,10 +575,10 @@
     font-weight: 600;
     cursor: pointer;
   }
-
+ 
   .link-discord-btn.show { display: inline-flex; }
   .link-discord-btn:hover { background: rgba(88, 101, 242, 0.12); }
-
+ 
   .discord-linked-badge {
     display: none;
     align-items: center;
@@ -587,12 +587,12 @@
     color: var(--discord);
     font-weight: 600;
   }
-
+ 
   .discord-linked-badge.show { display: inline-flex; }
-
+ 
   /* Cart */
   .cart-modal .modal { max-width: 440px; text-align: left; }
-
+ 
   .cart-items {
     display: flex;
     flex-direction: column;
@@ -601,7 +601,7 @@
     max-height: 260px;
     overflow-y: auto;
   }
-
+ 
   .cart-item {
     display: flex;
     align-items: center;
@@ -610,17 +610,17 @@
     border-radius: 8px;
     padding: 12px 14px;
   }
-
+ 
   .cart-item-name {
     font-weight: 600;
     font-size: 14px;
   }
-
+ 
   .cart-item-price {
     color: var(--text-muted);
     font-size: 13px;
   }
-
+ 
   .cart-item-remove {
     background: none;
     border: none;
@@ -629,14 +629,14 @@
     font-size: 13px;
     font-weight: 600;
   }
-
+ 
   .cart-empty {
     text-align: center;
     color: var(--text-muted);
     font-size: 14px;
     padding: 30px 0;
   }
-
+ 
   .cart-total {
     display: flex;
     justify-content: space-between;
@@ -646,7 +646,7 @@
     padding-top: 16px;
     margin-bottom: 18px;
   }
-
+ 
   /* Bouton Discord flottant, toujours visible */
   .discord-float {
     position: fixed;
@@ -667,12 +667,12 @@
     z-index: 150;
     transition: border-color 0.15s ease, transform 0.15s ease;
   }
-
+ 
   .discord-float:hover {
     border-color: var(--discord);
     transform: translateY(-2px);
   }
-
+ 
   .discord-float .dot {
     width: 7px;
     height: 7px;
@@ -680,7 +680,7 @@
     background: #3ba55d;
     flex-shrink: 0;
   }
-
+ 
   @media (max-width: 800px) {
     .discord-float {
       bottom: 16px;
@@ -689,10 +689,10 @@
       font-size: 13px;
     }
   }
-
+ 
   /* Interface admin */
   .admin-modal .modal { max-width: 420px; text-align: left; }
-
+ 
   .admin-users-list {
     display: flex;
     flex-direction: column;
@@ -701,7 +701,7 @@
     overflow-y: auto;
     margin-bottom: 18px;
   }
-
+ 
   .admin-user-row {
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -711,10 +711,10 @@
     align-items: center;
     font-size: 13px;
   }
-
+ 
   .admin-user-row .name { font-weight: 600; }
   .admin-user-row .meta { color: var(--text-muted); font-size: 12px; }
-
+ 
   .admin-badge {
     font-size: 11px;
     padding: 2px 8px;
@@ -722,12 +722,12 @@
     background: rgba(59, 165, 93, 0.15);
     color: #3ba55d;
   }
-
+ 
   .admin-badge.off {
     background: rgba(224, 93, 93, 0.15);
     color: var(--danger);
   }
-
+ 
   .admin-empty {
     text-align: center;
     color: var(--text-muted);
@@ -737,7 +737,7 @@
 </style>
 </head>
 <body>
-
+ 
 <header>
   <div class="logo">
     <div class="logo-badge">V</div>
@@ -762,7 +762,7 @@
     </button>
   </div>
 </header>
-
+ 
 <main>
   <section class="hero">
     <div class="badge"><span class="dot"></span> Réservé aux membres du Discord</div>
@@ -773,12 +773,12 @@
       <button class="btn btn-discord" data-action="discord">Rejoindre le Discord</button>
     </div>
   </section>
-
+ 
   <section>
     <h2 class="section-title">Salon des grades</h2>
     <p class="section-sub">Choisis ton grade : 5€ ou 9€. Ton rôle Discord est attribué après l'achat.</p>
     <p class="section-sub">Connecte-toi et lie ton compte Discord pour débloquer les achats.</p>
-
+ 
     <div class="grades">
       <div class="grade-card featured">
         <div class="grade-name">Grade 2 — Vibe User</div>
@@ -790,7 +790,7 @@
         </ul>
         <button class="grade-buy" data-action="cart-add" data-grade="Vibe User" data-price="5">Ajouter au panier</button>
       </div>
-
+ 
       <div class="grade-card">
         <div class="grade-name">Grade 3 — Vibe Premium</div>
         <div class="grade-price">9€</div>
@@ -803,21 +803,21 @@
       </div>
     </div>
   </section>
-
+ 
   <div class="panel">
     <h2>Télécharger Vibe-Client</h2>
     <p>Le fichier <strong>vibe-client.jar</strong> est réservé aux membres du Discord.</p>
     <button class="btn btn-accent" data-action="download">Télécharger le .jar</button>
     <div class="panel-note">Version stable · Windows / Linux · Java 17+</div>
   </div>
-
+ 
 </main>
-
+ 
 <button class="discord-float" data-action="discord">
   <span class="dot"></span>
   Rejoindre le Discord
 </button>
-
+ 
 <footer>
   © 2026 Vibe-Client. Tous droits réservés.
   <div class="footer-warn">⚠ Accès limité au cheat — réduction en fonction du grade</div>
@@ -829,9 +829,9 @@
     <a href="#" id="admin-link">Admin</a>
   </div>
 </footer>
-
+ 
 <div id="toast"><span class="dot"></span><span id="toast-text"></span></div>
-
+ 
 <!-- Modale Auth -->
 <div class="modal-backdrop" id="auth-backdrop">
   <div class="modal">
@@ -839,7 +839,7 @@
       <button class="auth-tab active" id="tab-login">Connexion</button>
       <button class="auth-tab" id="tab-register">Inscription</button>
     </div>
-
+ 
     <!-- Login -->
     <form class="auth-form" id="login-form">
       <div class="field">
@@ -853,7 +853,7 @@
       <div class="field-error" id="login-error"></div>
       <button type="submit" class="btn btn-accent" style="width:100%;margin-top:6px;">Se connecter</button>
     </form>
-
+ 
     <!-- Register -->
     <form class="auth-form" id="register-form" style="display:none;">
       <div class="field">
@@ -875,13 +875,13 @@
       <div class="field-error" id="register-error"></div>
       <button type="submit" class="btn btn-accent" style="width:100%;margin-top:6px;">Créer mon compte</button>
     </form>
-
+ 
     <div class="auth-switch" id="auth-switch">
       Pas encore de compte ? <button id="switch-to-register">S'inscrire</button>
     </div>
   </div>
 </div>
-
+ 
 <!-- Modale Achat (grade unique) -->
 <div class="modal-backdrop" id="modal-backdrop">
   <div class="modal">
@@ -893,7 +893,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- Modale Panier -->
 <div class="modal-backdrop cart-modal" id="cart-backdrop">
   <div class="modal">
@@ -909,7 +909,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- Modale Admin — connexion -->
 <div class="modal-backdrop admin-modal" id="admin-login-backdrop">
   <div class="modal">
@@ -928,7 +928,7 @@
     </form>
   </div>
 </div>
-
+ 
 <!-- Modale Admin — panneau -->
 <div class="modal-backdrop admin-modal" id="admin-panel-backdrop">
   <div class="modal">
@@ -941,44 +941,44 @@
     </div>
   </div>
 </div>
-
+ 
 <script>
   const DISCORD_INVITE = "https://discord.gg/ton-invite"; // remplace par ton vrai lien d'invitation
-
+ 
   // --- Identifiants admin : modifie directement ces valeurs dans le fichier source ---
   const ADMIN_ACCOUNTS = [
     { username: "admin", password: "ChangeMoi123" },
   ];
   let adminLoggedIn = false;
-
+ 
   /* --- Etat en mémoire (pas de stockage persistant) --- */
   const users = [];        // { email, pseudo, password, discordLinked }
   let currentUser = null;  // référence vers un objet de "users"
   const cart = [];         // { grade, price }
-
+ 
   /* --- Toast --- */
   const toast = document.getElementById('toast');
   const toastText = document.getElementById('toast-text');
   let toastTimer;
-
+ 
   function showToast(message) {
     toastText.textContent = message;
     toast.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
   }
-
+ 
   /* --- Modale générique achat unique (gardée pour compat) --- */
   const modalBackdrop = document.getElementById('modal-backdrop');
   const modalTitle = document.getElementById('modal-title');
   const modalBody = document.getElementById('modal-body');
   const modalConfirm = document.getElementById('modal-confirm');
   const modalCancel = document.getElementById('modal-cancel');
-
+ 
   function closeModal(backdrop) {
     backdrop.classList.remove('open');
   }
-
+ 
   modalCancel.addEventListener('click', () => closeModal(modalBackdrop));
   document.querySelectorAll('.modal-backdrop').forEach((bd) => {
     bd.addEventListener('click', (e) => {
@@ -990,7 +990,7 @@
       document.querySelectorAll('.modal-backdrop.open').forEach(closeModal);
     }
   });
-
+ 
   /* --- Auth --- */
   const authBackdrop = document.getElementById('auth-backdrop');
   const accountBtn = document.getElementById('account-btn');
@@ -999,7 +999,7 @@
   const accountName = document.getElementById('account-name');
   const linkDiscordBtn = document.getElementById('link-discord-btn');
   const discordLinkedBadge = document.getElementById('discord-linked-badge');
-
+ 
   const tabLogin = document.getElementById('tab-login');
   const tabRegister = document.getElementById('tab-register');
   const loginForm = document.getElementById('login-form');
@@ -1008,7 +1008,7 @@
   const switchToRegister = document.getElementById('switch-to-register');
   const loginError = document.getElementById('login-error');
   const registerError = document.getElementById('register-error');
-
+ 
   function showLoginTab() {
     tabLogin.classList.add('active');
     tabRegister.classList.remove('active');
@@ -1017,7 +1017,7 @@
     authSwitch.innerHTML = "Pas encore de compte ? <button id='switch-to-register'>S'inscrire</button>";
     document.getElementById('switch-to-register').addEventListener('click', showRegisterTab);
   }
-
+ 
   function showRegisterTab() {
     tabRegister.classList.add('active');
     tabLogin.classList.remove('active');
@@ -1026,11 +1026,11 @@
     authSwitch.innerHTML = "Déjà un compte ? <button id='switch-to-login'>Se connecter</button>";
     document.getElementById('switch-to-login').addEventListener('click', showLoginTab);
   }
-
+ 
   tabLogin.addEventListener('click', showLoginTab);
   tabRegister.addEventListener('click', showRegisterTab);
   switchToRegister.addEventListener('click', showRegisterTab);
-
+ 
   accountBtn.addEventListener('click', () => {
     loginError.classList.remove('show');
     registerError.classList.remove('show');
@@ -1039,7 +1039,7 @@
     showLoginTab();
     authBackdrop.classList.add('open');
   });
-
+ 
   accountPill.addEventListener('click', () => {
     if (!currentUser) return;
     const confirmLogout = confirm(`Déconnecter ${currentUser.pseudo} ?`);
@@ -1049,14 +1049,14 @@
       showToast('Déconnecté.');
     }
   });
-
+ 
   function refreshAccountUI() {
     if (currentUser) {
       accountBtn.style.display = 'none';
       accountPill.classList.add('show');
       accountAvatar.textContent = currentUser.pseudo.charAt(0).toUpperCase();
       accountName.textContent = currentUser.pseudo;
-
+ 
       if (currentUser.discordLinked) {
         linkDiscordBtn.classList.remove('show');
         discordLinkedBadge.classList.add('show');
@@ -1071,7 +1071,7 @@
       discordLinkedBadge.classList.remove('show');
     }
   }
-
+ 
   linkDiscordBtn.addEventListener('click', () => {
     if (!currentUser) return;
     window.open(DISCORD_INVITE, '_blank', 'noopener');
@@ -1082,59 +1082,59 @@
       showToast(`Compte Discord lié à ${currentUser.pseudo} !`);
     }
   });
-
+ 
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     loginError.classList.remove('show');
-
+ 
     const id = document.getElementById('login-id').value.trim();
     const password = document.getElementById('login-password').value;
-
+ 
     const user = users.find(
       (u) => (u.email === id || u.pseudo === id) && u.password === password
     );
-
+ 
     if (!user) {
       loginError.textContent = "Email/pseudo ou mot de passe incorrect.";
       loginError.classList.add('show');
       return;
     }
-
+ 
     if (user.discordLinked === undefined) user.discordLinked = false;
     currentUser = user;
     refreshAccountUI();
     closeModal(authBackdrop);
     showToast(`Bienvenue, ${currentUser.pseudo} !`);
   });
-
+ 
   registerForm.addEventListener('submit', (e) => {
     e.preventDefault();
     registerError.classList.remove('show');
-
+ 
     const email = document.getElementById('reg-email').value.trim();
     const pseudo = document.getElementById('reg-pseudo').value.trim();
     const password = document.getElementById('reg-password').value;
     const passwordConfirm = document.getElementById('reg-password-confirm').value;
-
+ 
     if (password !== passwordConfirm) {
       registerError.textContent = "Les mots de passe ne correspondent pas.";
       registerError.classList.add('show');
       return;
     }
-
+ 
     if (password.length < 6) {
       registerError.textContent = "Le mot de passe doit faire au moins 6 caractères.";
       registerError.classList.add('show');
       return;
     }
-
+ 
     const exists = users.some((u) => u.email === email || u.pseudo === pseudo);
     if (exists) {
       registerError.textContent = "Un compte existe déjà avec cet email ou ce pseudo.";
       registerError.classList.add('show');
       return;
     }
-
+ 
     const newUser = { email, pseudo, password, discordLinked: false };
     users.push(newUser);
     currentUser = newUser;
@@ -1142,7 +1142,7 @@
     closeModal(authBackdrop);
     showToast(`Compte créé — bienvenue, ${pseudo} !`);
   });
-
+ 
   /* --- Panier --- */
   const cartBtn = document.getElementById('cart-btn');
   const cartCount = document.getElementById('cart-count');
@@ -1152,21 +1152,21 @@
   const cartTotalAmount = document.getElementById('cart-total-amount');
   const cartClose = document.getElementById('cart-close');
   const cartCheckout = document.getElementById('cart-checkout');
-
+ 
   function updateCartBadge() {
     cartCount.textContent = cart.length;
     cartCount.classList.toggle('show', cart.length > 0);
   }
-
+ 
   function renderCart() {
     cartItemsEl.innerHTML = '';
-
+ 
     if (cart.length === 0) {
       cartItemsEl.innerHTML = '<div class="cart-empty">Ton panier est vide.</div>';
       cartTotalEl.style.display = 'none';
       return;
     }
-
+ 
     let total = 0;
     cart.forEach((item, index) => {
       total += item.price;
@@ -1181,10 +1181,10 @@
       `;
       cartItemsEl.appendChild(row);
     });
-
+ 
     cartTotalEl.style.display = 'flex';
     cartTotalAmount.textContent = `${total}€`;
-
+ 
     cartItemsEl.querySelectorAll('.cart-item-remove').forEach((btn) => {
       btn.addEventListener('click', () => {
         cart.splice(Number(btn.dataset.index), 1);
@@ -1193,20 +1193,20 @@
       });
     });
   }
-
+ 
   function addToCart(grade, price) {
     cart.push({ grade, price: Number(price) });
     updateCartBadge();
     showToast(`"${grade}" ajouté au panier.`);
   }
-
+ 
   cartBtn.addEventListener('click', () => {
     renderCart();
     cartBackdrop.classList.add('open');
   });
-
+ 
   cartClose.addEventListener('click', () => closeModal(cartBackdrop));
-
+ 
   cartCheckout.addEventListener('click', () => {
     if (cart.length === 0) {
       showToast('Ton panier est vide.');
@@ -1230,7 +1230,7 @@
     closeModal(cartBackdrop);
     showToast(`Commande validée pour ${total}€ — connecte un moyen de paiement pour finaliser.`);
   });
-
+ 
   /* --- Admin --- */
   const adminLink = document.getElementById('admin-link');
   const adminLoginBackdrop = document.getElementById('admin-login-backdrop');
@@ -1241,16 +1241,16 @@
   const adminSummary = document.getElementById('admin-summary');
   const adminLogout = document.getElementById('admin-logout');
   const adminPanelClose = document.getElementById('admin-panel-close');
-
+ 
   function renderAdminPanel() {
     adminSummary.textContent = `${users.length} compte(s) enregistré(s) sur cette session.`;
     adminUsersList.innerHTML = '';
-
+ 
     if (users.length === 0) {
       adminUsersList.innerHTML = '<div class="admin-empty">Aucun compte pour le moment.</div>';
       return;
     }
-
+ 
     users.forEach((u) => {
       const row = document.createElement('div');
       row.className = 'admin-user-row';
@@ -1264,7 +1264,7 @@
       adminUsersList.appendChild(row);
     });
   }
-
+ 
   adminLink.addEventListener('click', (e) => {
     e.preventDefault();
     if (adminLoggedIn) {
@@ -1276,63 +1276,64 @@
       adminLoginBackdrop.classList.add('open');
     }
   });
-
+ 
   adminLoginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     adminLoginError.classList.remove('show');
-
+ 
     const username = document.getElementById('admin-username').value.trim();
     const password = document.getElementById('admin-password').value;
-
+ 
     const match = ADMIN_ACCOUNTS.some((a) => a.username === username && a.password === password);
-
+ 
     if (!match) {
       adminLoginError.textContent = "Identifiant ou mot de passe incorrect.";
       adminLoginError.classList.add('show');
       return;
     }
-
+ 
     adminLoggedIn = true;
     closeModal(adminLoginBackdrop);
     renderAdminPanel();
     adminPanelBackdrop.classList.add('open');
     showToast('Connecté en tant qu\'administrateur.');
   });
-
+ 
   adminLogout.addEventListener('click', () => {
     adminLoggedIn = false;
     closeModal(adminPanelBackdrop);
     showToast('Session admin fermée.');
   });
-
+ 
   adminPanelClose.addEventListener('click', () => closeModal(adminPanelBackdrop));
-
+ 
   /* --- Actions génériques --- */
   document.querySelectorAll('[data-action]').forEach((el) => {
     el.addEventListener('click', () => {
       const action = el.dataset.action;
-
+ 
       if (action === 'discord') {
         window.open(DISCORD_INVITE, '_blank', 'noopener');
       }
-
+ 
       if (action === 'download') {
         showToast('Téléchargement réservé aux membres — rejoins le Discord pour débloquer.');
       }
-
+ 
       if (action === 'roles') {
         document.querySelector('.grades').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-
+ 
       if (action === 'cart-add') {
         addToCart(el.dataset.grade, el.dataset.price);
       }
     });
   });
-
+ 
   refreshAccountUI();
   updateCartBadge();
 </script>
-
+ 
 </body>
 </html>
+ 
