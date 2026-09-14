@@ -945,12 +945,6 @@
 <script>
   const DISCORD_INVITE = "https://discord.gg/gcbjTHrCGs"; // remplace par ton vrai lien d'invitation
  
-  // --- Identifiants admin : modifie directement ces valeurs dans le fichier source ---
-  const ADMIN_ACCOUNTS = [
-    { username: "admin", password: "troptuffpourtoi" },
-  ];
-  let adminLoggedIn = false;
- 
   /* --- Etat en mémoire (pas de stockage persistant) --- */
   const users = [];        // { email, pseudo, password, discordLinked }
   let currentUser = null;  // référence vers un objet de "users"
