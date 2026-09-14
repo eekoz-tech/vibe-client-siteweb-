@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vibe-Client</title>
+<script defer src="https://js.tebex.io/v/1.js"></script>
 <style>
   :root {
     --bg: #121212;
@@ -945,6 +946,12 @@
 <script>
   const DISCORD_INVITE = "https://discord.gg/gcbjTHrCGs"; // remplace par ton vrai lien d'invitation
  
+  // --- Identifiants admin : modifie directement ces valeurs dans le fichier source ---
+  const ADMIN_ACCOUNTS = [
+    { username: "admin", password: "troptuffpourtoi" },
+  ];
+  let adminLoggedIn = false;
+ 
   /* --- Etat en mémoire (pas de stockage persistant) --- */
   const users = [];        // { email, pseudo, password, discordLinked }
   let currentUser = null;  // référence vers un objet de "users"
@@ -1201,6 +1208,50 @@
  
   cartClose.addEventListener('click', () => closeModal(cartBackdrop));
  
+  /* --- Intégration Tebex --- */
+  // ⚠️ Remplace par ton vrai Webstore public token (Tebex > Réglages > API Keys)
+  const WEBSTORE_TOKEN = "TON_WEBSTORE_TOKEN_ICI";
+
+  // ⚠️ Remplace chaque 0 par le vrai Package ID Tebex de chaque grade
+  // (visible dans l'URL quand tu édites le colis dans Tebex, ou via l'API Packages)
+  const TEBEX_PACKAGE_IDS = {
+    "Vibe User": 0,     // ID du package 5€
+    "Vibe Premium": 0,  // ID du package 9€
+  };
+
+  async function launchTebexCheckout(cartItems) {
+    // 1. Crée un panier Tebex
+    const basketRes = await fetch(`https://headless.tebex.io/api/accounts/${WEBSTORE_TOKEN}/baskets`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        complete_url: window.location.href,
+        cancel_url: window.location.href,
+      }),
+    });
+    if (!basketRes.ok) throw new Error('Impossible de créer le panier Tebex.');
+    const basketData = await basketRes.json();
+    const basketIdent = basketData.data.ident;
+
+    // 2. Ajoute chaque article du panier local au panier Tebex
+    for (const item of cartItems) {
+      const packageId = TEBEX_PACKAGE_IDS[item.grade];
+      if (!packageId) {
+        console.warn(`Aucun Package ID Tebex configuré pour "${item.grade}"`);
+        continue;
+      }
+      await fetch(`https://headless.tebex.io/api/baskets/${basketIdent}/packages`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ package_id: packageId, quantity: 1 }),
+      });
+    }
+
+    // 3. Lance le checkout Tebex en popup, directement sur le site
+    Tebex.checkout.init({ ident: basketIdent, theme: 'dark' });
+    Tebex.checkout.launch();
+  }
+
   cartCheckout.addEventListener('click', () => {
     if (cart.length === 0) {
       showToast('Ton panier est vide.');
@@ -1218,11 +1269,23 @@
       linkDiscordBtn.click();
       return;
     }
-    const total = cart.reduce((sum, i) => sum + i.price, 0);
-    cart.length = 0;
-    updateCartBadge();
+
     closeModal(cartBackdrop);
-    showToast(`Commande validée pour ${total}€ — connecte un moyen de paiement pour finaliser.`);
+    launchTebexCheckout(cart).then(() => {
+      cart.length = 0;
+      updateCartBadge();
+    }).catch((err) => {
+      console.error(err);
+      showToast("Erreur lors de la préparation du paiement, réessaie.");
+    });
+  });
+
+  // Écoute l'événement de paiement réussi envoyé par Tebex.js pour vider le panier / avertir l'utilisateur
+  window.addEventListener('load', () => {
+    if (typeof Tebex === 'undefined') return;
+    Tebex.checkout.on('payment:complete', () => {
+      showToast('Paiement validé, merci pour ta commande !');
+    });
   });
  
   /* --- Admin --- */
@@ -1330,4 +1393,3 @@
  
 </body>
 </html>
- 
